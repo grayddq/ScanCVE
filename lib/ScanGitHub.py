@@ -62,11 +62,14 @@ class ScanGitHubCVE:
             else:
                 if len(re.findall('(?i)cve-2020-\d*', git_des)) > 0:
                     cve_name = re.findall('(?i)cve-2020-\d*', git_des)[0]
-            # 获取cve漏洞说明
-            cve_des = "" if cve_name == "" else SearchCVE(cve_name).run()
+            # 获取cve漏洞cvss和说明
+            if cve_name == "":
+                cve_cvss, cve_des = "", ""
+            else:
+                cve_cvss, cve_des = SearchCVE(cve_name).run()
 
-            content += "\n[{}] 项目名称：{}\n[{}] 项目描述: {}\n[{}] CVE编号：{}\n[{}] CVE说明：{}\n".format(
-                i, '<a href=\"' + git_url + '\">' + git_name + '</a>', i, git_des, i, cve_name, i, cve_des)
+            content += "\n[{}] 项目名称：{}\n[{}] 项目描述: {}\n[{}] CVE编号：{}\n[{}] CVSS等级：{}\n[{}] CVE说明：{}\n".format(
+                i, '<a href=\"' + git_url + '\">' + git_name + '</a>', i, git_des, i, cve_name, i, cve_cvss, i, cve_des)
 
         return content
 
