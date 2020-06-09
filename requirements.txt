@@ -1,3 +1,4 @@
+pyparsing==2.2.0
 translate==3.5.0
 requests==2.22.0
 beautifulsoup4==4.9.1
